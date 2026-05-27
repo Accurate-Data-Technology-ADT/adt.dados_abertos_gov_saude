@@ -7,10 +7,15 @@ on:
     paths-ignore:
       - "**.md"
       - ".gitignore"
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   lint:
     name: Lint and format
+    if: |
+      github.event_name == 'pull_request' || 
+      (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
