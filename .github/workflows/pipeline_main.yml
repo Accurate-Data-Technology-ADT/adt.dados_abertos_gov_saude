@@ -1,9 +1,9 @@
-name: CI/CD Pipeline - Development
+name: CI/CD Pipeline - Main
 
 on:
   pull_request:
     branches:
-      - development
+      - main
 
 jobs:
   lint:
@@ -12,13 +12,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: "pip"
-
+      
       - name: Install lint dependencies
         run: pip install ruff black
 
@@ -61,7 +61,7 @@ jobs:
           name: coverage-report
           path: coverage.xml
           retention-days: 7
-
+  
   security:
     name: Security scan
     runs-on: ubuntu-latest
